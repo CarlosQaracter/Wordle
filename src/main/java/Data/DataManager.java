@@ -15,7 +15,7 @@ public class DataManager {
     public DataManager(String filename) throws IOException {
             this.br = new BufferedReader(new FileReader(filename));
             lines = Integer.parseInt(br.readLine());
-            System.out.println("DM creation" + lines);
+            //System.out.println("DM creation" + lines);
             br.mark(lines);
             random = new Random();
     }
@@ -27,31 +27,21 @@ public class DataManager {
     }
 
     public String getWord(int line) throws IOException {
+        System.out.println("Index=" + line);
         br.reset();
         String readLine = br.readLine();
-        System.out.println("getWordinit" + readLine);
+        //System.out.println("getWordinit" + readLine);
         int i = 1;
         while ((readLine != null) && (i < (lines - 1)) && (line != (i - 1))) {
             readLine = br.readLine();
-            System.out.println("getWordLoop" + readLine);
+            //System.out.println("getWordLoop" + readLine);
             i++;
         }
         return readLine;
     }
 
     public String getWord() throws IOException {
-        br.reset();
-        String readLine = br.readLine();
-        int i = 1;
-        int stopLine = random.nextInt(lines - 1);
-
-        System.out.println("Stop:" + stopLine);
-        while ((readLine != null) && (i < (lines - 1)) && (stopLine != (i - 1))) {
-            readLine = br.readLine();
-            i++;
-        }
-        System.out.println("returned" + readLine);
-        return readLine;
+        return getWord(random.nextInt(lines - 1));
     }
 
     public BufferedReader getBr() {
