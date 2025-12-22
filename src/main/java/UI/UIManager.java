@@ -2,9 +2,12 @@ package UI;
 
 import Data.DataManager;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
+
+import static Logic.GameLogic.playGame;
 
 public class UIManager {
     private DataManager dataManager;
@@ -41,6 +44,15 @@ public class UIManager {
         int code;
         switch (option) {
             case (1):
+                System.out.println("Playing with a random word:");
+                try {
+                    playGame(dataManager.getWord());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
+            case 2:
                 System.out.println("To select a word for playing please, introduce it's code.");
                 System.out.println("NOTE: with current data it should be between 1 and " + (dataManager.getLines() - 1) + ".");
                 System.out.println("Introducing a 0 will return you to the main menu.");
@@ -53,13 +65,12 @@ public class UIManager {
                 }
 
                 if(code != 0){
-                    // PLAY game with code - 1
+                    try {
+                        playGame(dataManager.getWord(code - 1));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-                break;
-
-            case 2:
-                System.out.println("Playing with a random word:");
-                // PLAY game
                 break;
 
             case 3:
