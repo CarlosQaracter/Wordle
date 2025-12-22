@@ -47,6 +47,7 @@ public class UIManager {
                 System.out.println("Playing with a random word:");
                 try {
                     playGame(dataManager.getWord());
+                    System.out.println("Word code of this run was " + dataManager.getLines() + ".");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -67,6 +68,7 @@ public class UIManager {
                 if(code != 0){
                     try {
                         playGame(dataManager.getWord(code - 1));
+                        System.out.println("The code of this run was selected by you and was " + code);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
