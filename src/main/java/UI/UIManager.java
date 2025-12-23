@@ -22,15 +22,19 @@ public class UIManager {
         int option = 0;
         System.out.println("WORDLE command game initialized!");
         while (true) {
+            // Menu options to perform
             System.out.println("\nSelect an option from the menu to proceed:");
             System.out.println("\n1. Play with a random word.");
             System.out.println("2. Play with selected word (for challenging your friends).");
             System.out.println("\n3. Close the game.");
 
+            // read from the user
             option = readInt();
 
+            // if able perform the operation selected
             if (option > 0 && option < 4) {
                 if (!handleMenuInput(option)) {
+                    // if the option chosen was 3, a false is returned and the program is ended
                     return;
                 }
             } else {
@@ -40,10 +44,11 @@ public class UIManager {
         }
     }
 
+    // Handle selected option by the user
     boolean handleMenuInput(int option) {
         int code;
         switch (option) {
-            case (1):
+            case (1): // Play with a random word
                 System.out.println("Playing with a random word:");
                 try {
                     playGame(dataManager.getWord());
@@ -53,7 +58,7 @@ public class UIManager {
                 }
                 break;
 
-            case 2:
+            case 2: // Play with selected word
                 System.out.println("To select a word for playing please, introduce it's code.");
                 System.out.println("NOTE: with current data it should be between 1 and " + (dataManager.getLines() - 1) + ".");
                 System.out.println("Introducing a 0 will return you to the main menu.");
@@ -75,12 +80,12 @@ public class UIManager {
                 }
                 break;
 
-            case 3:
+            case 3: // exit
                 System.out.println("Thanks for playing.");
                 System.out.println("Exiting the system . . .");
                 return false;
 
-            default:
+            default: // input error
                 System.out.println("Invalid option!");
                 break;
         }
@@ -88,6 +93,7 @@ public class UIManager {
         return true;
     }
 
+    // read an integer from the user
     int readInt() {
         boolean done = false;
         int option = 0;

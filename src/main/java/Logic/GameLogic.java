@@ -33,8 +33,9 @@ public class GameLogic {
 
         while (tries > 0) {
             System.out.println("You have " + tries + " tries left. Enter a valid 5 letter word to guess.");
-            for(int i = 0; i < 5; i++) {
 
+            // Print current state of the game
+            for(int i = 0; i < 5; i++) {
                 if(position[i]) {
                     System.out.print(arrayWordle[i]);
                 } else if(letter[i]) {
@@ -48,17 +49,23 @@ public class GameLogic {
             System.out.println();
 
             setArraysFalse();
+
+            // read a word from the user
             guess = sc.nextLine().toUpperCase();
 
             arrayGuess = guess.toCharArray();
 
+            // check input word is 5 char long
             if(guess.length() == 5) {
-                tries--;
+                tries--; // consume a trie
+
                 if(wordle.toUpperCase().equals(guess)) {
+                    // We entered the correct word, exit the while loop
                     break;
                 } else {
                     repetitions = new int[]{0, 0, 0, 0, 0};
 
+                    // Check how many times each letter (from the inputted word) is repeated in the correct word
                     for(int i = 0; i < 5; i++) {
                         for(int j = 0; j < 5; j++) {
                             if(arrayGuess[i] == arrayWordle[j]) {
@@ -67,6 +74,7 @@ public class GameLogic {
                         }
                     }
 
+                    // Check and store the first appearance in each letter
                     fa = new int[]{0, 1, 2, 3, 4};
                     for(int i = 1; i < 5; i++) {
                         for(int j = 1; i - j >= 0; j++) {
@@ -79,6 +87,7 @@ public class GameLogic {
                     // System.out.println(Arrays.toString(repetitions));
                     // System.out.println(Arrays.toString(fa));
 
+                    // Logic for giving values to position (correct letter, correct position) and letter (correct letter wrong position) for printing the game state
                     for (int i = 0; i < 5; i++) {
                         if ((arrayGuess[i] == arrayWordle[i]) && (repetitions[fa[i]] > 0)) {
                             position[i] = true;
