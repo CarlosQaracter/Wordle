@@ -22,7 +22,7 @@ public class UIManager {
         int option = 0;
         System.out.println("WORDLE command game initialized!");
         while (true) {
-            System.out.println("Select an option from the menu to proceed:");
+            System.out.println("\nSelect an option from the menu to proceed:");
             System.out.println("\n1. Play with a random word.");
             System.out.println("2. Play with selected word (for challenging your friends).");
             System.out.println("\n3. Close the game.");
@@ -47,7 +47,7 @@ public class UIManager {
                 System.out.println("Playing with a random word:");
                 try {
                     playGame(dataManager.getWord());
-                    System.out.println("Word code of this run was " + dataManager.getLines() + ".");
+                    System.out.println("Word code of this run was " + dataManager.getLastCode() + ".");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -67,8 +67,8 @@ public class UIManager {
 
                 if(code != 0){
                     try {
-                        playGame(dataManager.getWord(code - 1));
-                        System.out.println("The code of this run was selected by you and was " + code);
+                        playGame(dataManager.getWord((code - 1)));
+                        System.out.println("The code of this run was selected by you and was " + code + ".");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

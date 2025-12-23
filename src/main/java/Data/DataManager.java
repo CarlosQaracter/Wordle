@@ -11,13 +11,15 @@ public class DataManager {
     private BufferedReader br;
     private int lines;
     private Random random;
+    private int lastCode;
 
     public DataManager(String filename) throws IOException {
             this.br = new BufferedReader(new FileReader(filename));
-            lines = Integer.parseInt(br.readLine());
+            this.lines = Integer.parseInt(br.readLine());
             //System.out.println("DM creation" + lines);
-            br.mark(lines);
-            random = new Random();
+            this.br.mark(lines);
+            this.random = new Random();
+            this.lastCode = 0;
     }
 
     public void closeDataFile() throws IOException {
@@ -27,7 +29,7 @@ public class DataManager {
     }
 
     public String getWord(int line) throws IOException {
-        System.out.println("Index=" + line);
+        //1System.out.println("Index=" + line);
         br.reset();
         String readLine = br.readLine();
         //System.out.println("getWordinit" + readLine);
@@ -41,7 +43,8 @@ public class DataManager {
     }
 
     public String getWord() throws IOException {
-        return getWord(random.nextInt(lines - 1));
+        lastCode = random.nextInt((lines - 1));
+        return getWord(lastCode);
     }
 
     public BufferedReader getBr() {
@@ -66,5 +69,13 @@ public class DataManager {
 
     public void setRandom(Random random) {
         this.random = random;
+    }
+
+    public int getLastCode() {
+        return lastCode;
+    }
+
+    public void setLastCode(int lastCode) {
+        this.lastCode = lastCode;
     }
 }
